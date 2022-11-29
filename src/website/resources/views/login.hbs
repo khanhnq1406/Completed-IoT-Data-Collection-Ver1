@@ -1,0 +1,38 @@
+<body class="login">
+  <div class="center">
+    <h1>Login</h1>
+    <form method="POST" action="/login">
+      {{#if isLoginFail}}
+        <div class="alert alert-danger" role="alert">
+          Invalid username or password
+        </div>
+      {{/if}}
+      {{#if justSignup}}
+        <div class="alert alert-success" role="alert">
+          Your account has been created
+        </div>
+      {{/if}}
+      {{#if notYetLogin}}
+        <div class="alert alert-warning" role="alert">
+          Please login first
+        </div>
+      {{/if}}
+      <div class="txt_field">
+        <input type="text" name="username" required />
+        <span></span>
+        <label>Username</label>
+      </div>
+      <div class="txt_field">
+        <input type="password" name="password" required />
+        <span></span>
+        <label>Password</label>
+      </div>
+      <div class="pass">Forgot Password?</div>
+      <input type="submit" value="Login" />
+      <div class="signup_link">
+        Not a member?
+        <a href="/signup">Signup</a>
+      </div>
+    </form>
+  </div>
+</body>

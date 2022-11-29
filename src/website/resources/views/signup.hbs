@@ -1,0 +1,36 @@
+<body class = "login">  
+  <div class="center">
+    <h1>Sign Up</h1>
+    <form method="POST" action="/addUsers">
+      {{#if isDiffPassword}}
+      <div class="alert alert-danger" role="alert">
+        Passwords does not match
+      </div>
+      {{/if}}
+      {{#if isInvalid}}
+      <div class="alert alert-danger" role="alert">
+        Username not available
+      </div>
+      {{/if}}
+      <div class="txt_field">
+        <input type="text" name="username" required value = {{username}}>
+        <span></span>
+        <label>Username</label>
+      </div>
+      <div class="txt_field">
+        <input type="password" name="password" required>
+        <span></span>
+        <label>Password</label>
+      </div>
+      <div class="txt_field">
+        <input type="password" name="retypePassword" required>
+        <span></span>
+        <label>Confirm Password</label>
+      </div>
+      <input type="submit" value="Signup">
+      <div class="signup_link">
+        Already a member? <a href="/">Login</a>
+      </div>
+    </form>
+  </div>
+</body>

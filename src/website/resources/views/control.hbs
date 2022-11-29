@@ -1,0 +1,44 @@
+<body class="home">
+  <div class="control">
+    {{#if statusLight1}}
+      <div class="card" style="width: 18rem;">
+        <img src="/img/light-on.png" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">Light 1</h5>
+          <p class="card-text">Click to change status of light</p>
+          <a class="btn btn-primary" href="/control/turning">Turn Off</a>
+        </div>
+      </div>
+    {{else}}
+      <div class="card" style="width: 18rem;">
+        <img src="/img/light-off.png" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">Light 1</h5>
+          <p class="card-text">Click to change status of light</p>
+          <a class="btn btn-primary" href="/control/turning">Turn On</a>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  <div class="control2">
+    {{#if statusLight2}}
+      <div class="card" style="width: 18rem;">
+        <img src="/img/light-on.png" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">Light 2</h5>
+          <p class="card-text">Click to change status of light</p>
+          <a class="btn btn-primary" href="/control/turningLight2">Turn Off</a>
+        </div>
+      </div>
+    {{else}}
+      <div class="card" style="width: 18rem;">
+        <img src="/img/light-off.png" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">Light 2</h5>
+          <p class="card-text">Click to change status of light</p>
+          <a class="btn btn-primary" href="/control/turningLight2">Turn On</a>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</body>

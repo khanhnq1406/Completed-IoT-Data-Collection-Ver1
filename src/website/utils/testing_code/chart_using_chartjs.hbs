@@ -1,0 +1,90 @@
+<body class = "chart_body"> 
+  <div class = "chart">
+    {{!-- <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script> --}}
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{!-- <div id="chartContainer" style="height: 370px; width:100%;"></div> --}}
+    <canvas id="myChart"></canvas>
+    <script type="module">
+      const firebaseConfig = {
+        apiKey: "AIzaSyC_qSBpZtTtC2WJPDzZYyrkhs4ZKMCnqTM",
+        authDomain: "iot-project-ffcf1.firebaseapp.com",
+        databaseURL: "https://iot-project-ffcf1-default-rtdb.firebaseio.com",
+        projectId: "iot-project-ffcf1",
+        storageBucket: "iot-project-ffcf1.appspot.com",
+        messagingSenderId: "660977884125",
+        appId: "1:660977884125:web:0166c572f6ff41f9bd7434",
+        measurementId: "G-J4TKHJE6KV"
+      };
+
+      // Initialize Firebase
+      const defaultProject = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const labels = [];
+      const data = {
+          labels: labels,
+          datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [],
+          }]
+        };
+        var options = {
+          animation: false,
+          //Boolean - If we want to override with a hard coded scale
+          scaleOverride: true,
+          //** Required if scaleOverride is true **
+          //Number - The number of steps in a hard coded scale
+          scaleSteps: 10,
+          //Number - The value jump in the hard coded scale
+          scaleStepWidth: 10,
+          //Number - The scale starting value
+          scaleStartValue: 0,
+          scales : {
+            xAxis: {
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10
+                }
+            },
+          }
+        };
+      let myChart = new Chart (
+          document.getElementById('myChart'),
+          {
+          type: 'line',
+          data: data,
+          options:options,
+      });
+
+      function addData(chart, label, data) {
+          chart.data.labels.push(label);
+          chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(data);
+          });
+          chart.update();
+      }
+      let dataFirestore = [];
+      let currentDataLength = 0;
+      let pastDataLength = 0;
+      currentDataLength = 0;
+     
+      setInterval(function() {
+        db.collection("temperature").get().then((querySnapshot) => {
+          if (currentDataLength < querySnapshot.size) {
+          currentDataLength = 0;
+          querySnapshot.forEach((doc) => {
+              currentDataLength++;
+              addData(myChart ,doc.data().dateTime, doc.data().temperature);
+              dataFirestore.push({dateTime: doc.data().dateTime, temperature: doc.data().temperature});
+            });
+            console.log(dataFirestore);
+          }
+        }); 
+      }, 2000);
+    </script>
+  </div>

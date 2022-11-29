@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap");
+.table {
+  position: relative;
+  top: 80px;
+  color: #fff; }
+
+.body-table {
+  background: linear-gradient(120deg, #2980b9, #8e44ad); }
+
+.date-picker {
+  position: relative;
+  top: 80px;
+  width: 100px;
+  white-space: nowrap; }
+
+.date {
+  display: inline-block; }
+
+.submit-date {
+  display: inline-block; }
+
+.form-select {
+  border: none;
+  width: 170px;
+  font-weight: bold; }
+
+.login-form {
+  position: relative;
+  top: 80px; }
+
+.form-control {
+  display: block;
+  width: 400px; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; }
+
+.login {
+  margin: 50;
+  padding: 0;
+  background: linear-gradient(120deg, #2980b9, #8e44ad);
+  height: 100vh;
+  overflow: hidden; }
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05); }
+
+.center h1 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver; }
+
+.center form {
+  padding: 0 40px;
+  box-sizing: border-box; }
+
+form .txt_field {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0; }
+
+.txt_field input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none; }
+
+.txt_field label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s; }
+
+.txt_field span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: 0.5s; }
+
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
+  top: -5px;
+  color: #2691d9; }
+
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before {
+  width: 100%; }
+
+.pass {
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+  cursor: pointer; }
+
+.pass:hover {
+  text-decoration: underline; }
+
+input[type="submit"] {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2691d9;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none; }
+
+input[type="submit"]:hover {
+  border-color: #2691d9;
+  transition: 0.5s; }
+
+.signup_link {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #666666; }
+
+.signup_link a {
+  color: #2691d9;
+  text-decoration: none; }
+
+.signup_link a:hover {
+  text-decoration: underline; }
+
+.home {
+  margin: 50;
+  padding: 0;
+  background: linear-gradient(120deg, #2980b9, #8e44ad);
+  height: 100vh;
+  overflow: hidden; }
+
+.display-1 {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, 0);
+  color: #e9f4fb;
+  font-weight: bold; }
+
+.display-2 {
+  position: absolute;
+  left: 42.5%;
+  top: 40%;
+  transform: translate(-50%, 0);
+  color: #e9f4fb;
+  animation: ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both; }
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none; }
+  50% {
+    transform: none; } }
+
+.number-home {
+  position: absolute;
+  top: 450px;
+  left: 560px; }
+
+.number-label {
+  color: #e9f4fb; }
+
+.btn-home {
+  margin-top: 10px; }
+
+.fw-normal {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, 0);
+  color: #e9f4fb;
+  font-size: larger; }
+
+.chart_body {
+  margin: 50;
+  padding: 0;
+  background: #393948;
+  height: 100vh; }
+
+.chart {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 1200px; }
+
+.buttonClose {
+  position: absolute;
+  border: none;
+  font-size: 18px;
+  background-color: #fff3cd;
+  color: #664d03;
+  left: 89%; }
+
+.control {
+  position: absolute;
+  left: 10%;
+  top: 10%; }
+
+.control2 {
+  position: absolute;
+  left: 30%;
+  top: 10%; }
+
+.turned * {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 48.5%;
+  top: 30%; }
+
+.turned .checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+
+.turned .checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both; }
+
+.turned .checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0; } }
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none; }
+  50% {
+    transform: scale3d(1.1, 1.1, 1); } }
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142; } }
+
+.go-to-control {
+  position: absolute;
+  left: 47%;
+  top: 53%; }
+
+.chart_range {
+  position: absolute;
+  left: 13%;
+  top: 94%; }
+
+.slider {
+  width: 1100px; }
+
+#rangeValue {
+  color: #fff; }

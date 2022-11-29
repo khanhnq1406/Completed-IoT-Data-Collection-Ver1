@@ -1,0 +1,53 @@
+<body class="body-table">
+  <form class="date-picker" method="get" action="">
+    <div class="date">
+      <input class="form-control" type="date" id="date-sort" name="dateSort" />
+    </div>
+    <div class="submit-date">
+      <button type="submit" class="btn btn-light">Done</button>
+    </div>
+  </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onchange="window.location.href = '/monitor/?dateSortSelect=' + this.value;"
+          >
+            <option selected>Date</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+            <option value="none">Cancel</option>
+
+          </select>
+        </th>
+        <th scope="col">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            onchange="window.location.href = '/monitor/?tempSort=' + this.value;"
+          >
+            <option value="">Temperature</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+            <option value="none">Cancel</option>
+
+          </select>
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#each pageData}}
+        <tr>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.dateTime}}</td>
+          <td>{{this.temperature}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</body>

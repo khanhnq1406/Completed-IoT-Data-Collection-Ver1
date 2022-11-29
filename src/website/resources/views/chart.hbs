@@ -1,0 +1,147 @@
+<body class = "chart_body"> 
+  <form method="GET" action="" class="chart_range" id="chart_range" name="chart_range">  
+    <div name = "chart_range" id="chart_range" style=" height: 6px; " ></div> 
+    <label id="rangeValue"></label>
+    <input 
+    type="range" 
+    name="range" 
+    id="range" 
+    class="slider" 
+    min="5" max="100"  
+    oninput="rangeValue.innerText = this.value" 
+    onchange="window.location.href = '/chart/?range=' + this.value;">
+  </form>
+  <div class = "chart">
+    {{!-- <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script> --}}
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    {{!-- <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> --}}
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{!-- <div id="chartContainer" style="height: 370px; width:100%;"></div> --}}
+    <canvas id="myChart"></canvas>
+    <script type="module">
+      const firebaseConfig = {
+        apiKey: "AIzaSyC_qSBpZtTtC2WJPDzZYyrkhs4ZKMCnqTM",
+        authDomain: "iot-project-ffcf1.firebaseapp.com",
+        databaseURL: "https://iot-project-ffcf1-default-rtdb.firebaseio.com",
+        projectId: "iot-project-ffcf1",
+        storageBucket: "iot-project-ffcf1.appspot.com",
+        messagingSenderId: "660977884125",
+        appId: "1:660977884125:web:0166c572f6ff41f9bd7434",
+        measurementId: "G-J4TKHJE6KV"
+      };
+      const firebaseConfig2 = {
+        apiKey: "AIzaSyCCMle_JkmnDA6A0aKU_7cZt5zZE905ggI",
+        authDomain: "iot-data-collection-5d7a4.firebaseapp.com",
+         //databaseURL: "https://iot-data-collection-5d7a4-default-rtdb.firebaseio.com",
+  databaseURL:
+    "https://iot-data-collection-5d7a4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "iot-data-collection-5d7a4",
+        storageBucket: "iot-data-collection-5d7a4.appspot.com",
+        messagingSenderId: "362954911615",
+        appId: "1:362954911615:web:79fd295a9168908112f44a",
+        measurementId: "G-F2GDXMVXLY"
+      };
+      // Initialize Firebase
+      const defaultProject = firebase.initializeApp(firebaseConfig2);
+      const db = firebase.database();
+      const labels = [];
+      const data = {
+          labels: labels,
+          datasets: [{
+            label: 'Temperature',
+            backgroundColor: '#f56d6d',
+            borderColor: '#f56d6d',
+            data: [],
+          }]
+        };
+        var options = {
+          //parsing: false,
+          animation: false,
+          //Boolean - If we want to override with a hard coded scale
+          //scaleOverride: true,
+          //** Required if scaleOverride is true **
+          //Number - The number of steps in a hard coded scale
+          //scaleSteps: 10,
+          //Number - The value jump in the hard coded scale
+          //scaleStepWidth: 10,
+          //Number - The scale starting value
+         // scaleStartValue: 0, 
+          scales : {
+            xAxis: {
+                ticks: {
+                    source: 'auto',
+                    autoSkip: true,
+                    maxTicksLimit: 10,
+                    maxRotation: 0,
+                    color: "#ffffff",
+                },
+                grid: { 
+                  color: "#5e5e6a",
+                },
+            },
+            yAxis: {
+              grid: {
+                color: "#5e5e6a",
+              },
+              ticks: {
+                color:"#ffffff",
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+              color: '#ffffff'
+                  }
+            },
+          }
+        };
+      let myChart = new Chart (
+          document.getElementById('myChart'),
+          {
+          type: 'line',
+          data: data,
+          options:options,
+        });
+      const queryString = window.location.search;
+      console.log(queryString.length);
+      let range = 10;
+      if (queryString.length !== 0) {
+        const urlParams = new URLSearchParams(queryString);
+        range = Number(urlParams.get('range'));
+      }
+      document.getElementById("rangeValue").innerHTML = String(range);
+      document.getElementById("range").value = Number(range);
+      function addData(chart, label, data) {
+          chart.data.labels.push(label);
+          label = chart.data.labels.splice(0, chart.data.labels.length - range);
+          chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+            console.log(dataset.data.splice(0, dataset.data.length - range));
+          });
+          chart.update();
+      }
+      const firebaseRef = db.ref("Temperature");
+      firebaseRef.once('value').then((snapshot) => {
+        snapshot.forEach(function(childSnapshot) {
+          let key = childSnapshot.key; 
+          let value = childSnapshot.val();
+          addData(myChart, key, value);
+          })
+        }).catch((error) => {
+          console.error(error);
+      });
+      let dataFirestore = [];
+      let currentDataLength = 0;
+      let pastDataLength = 0;
+      firebaseRef.on('child_added', (snapshot) => {
+          var temperature = snapshot.val();
+          var time = snapshot.key;
+          addData(myChart, time, temperature);
+      });
+    </script>
+  </div>

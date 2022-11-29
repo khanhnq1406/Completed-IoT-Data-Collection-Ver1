@@ -1,0 +1,83 @@
+<body class = "chart_body"> 
+  <div class = "chart">
+    {{!-- <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script> --}}
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer  src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div id="chartContainer" style="height: 370px; width:100%;"></div>
+    {{!-- <canvas id="myChart"></canvas> --}}
+    <script type="module">
+      const firebaseConfig = {
+        apiKey: "AIzaSyC_qSBpZtTtC2WJPDzZYyrkhs4ZKMCnqTM",
+        authDomain: "iot-project-ffcf1.firebaseapp.com",
+        databaseURL: "https://iot-project-ffcf1-default-rtdb.firebaseio.com",
+        projectId: "iot-project-ffcf1",
+        storageBucket: "iot-project-ffcf1.appspot.com",
+        messagingSenderId: "660977884125",
+        appId: "1:660977884125:web:0166c572f6ff41f9bd7434",
+        measurementId: "G-J4TKHJE6KV"
+      };
+
+      // Initialize Firebase
+      const defaultProject = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      window.onload = function () {
+        var dps = []; // dataPoints
+        db.collection("temperature").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            dps.push({
+              x: xVal++,
+              y: doc.data().temperature
+            });
+          });
+        });
+        var chart = new CanvasJS.Chart("chartContainer", {
+            axisX: {
+              valueFormatString: ""
+            },
+            title :{
+                text: "Dynamic Data"
+            },
+            data: [{
+                type: "line",
+                dataPoints: dps
+            }]
+        });
+        var updateInterval = 1000;
+        var dataLength = 10; // number of dataPoints visible at any point
+        let dataFirestore = [];
+        let currentDataLength = 0;
+        let xVal = 0;
+        var updateChart = function () {
+         
+
+          db.collection("temperature").get().then((querySnapshot) => {
+            if (currentDataLength < querySnapshot.size) {
+              currentDataLength = 0;
+              querySnapshot.forEach((doc) => {
+                  currentDataLength++;
+                  if (currentDataLength === querySnapshot.size - 1) {
+                    dps.push({
+                        x: xVal++,
+                        y: doc.data().temperature
+                      });
+                    dataFirestore.push({dateTime: doc.data().dateTime, temperature: doc.data().temperature});
+                  }
+                });
+                console.log(dataFirestore);
+            }
+          });
+          if (dps.length > dataLength) {
+            dps.shift();
+          }
+          chart.render();
+          console.log(dps);
+        };
+        updateChart();
+        setInterval(function(){updateChart()}, updateInterval);
+      }
+    </script>
+  </div>
