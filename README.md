@@ -1,6 +1,12 @@
 # IoT-Data-Collection-Ver1
 This is an IoT Data Collection project using LoRa, NodeJS, MQTT and Firebase
 
+<img src="/demo/login.png"/>
+<img src="/demo/monitor.png"/>
+<img src="/demo/control.png"/>
+<img src="/demo/chart.png"/>
+
+
 ## How to use repository
 
 - We will code in `src` folder. You can create new folder in `src` for your task (such as website, ESP32, LoRa,...).
